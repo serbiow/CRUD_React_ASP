@@ -1,0 +1,24 @@
+{
+  "Version": 1,
+  "Hash": "AH8kFsnI28fFv+zun25mK+NKEzp08aQWMPrYnCa4Ucc=",
+  "Source": "CRUD_EmpresaFicticia.Server",
+  "BasePath": "_content/CRUD_EmpresaFicticia.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\crud_empresaficticia.client\\crud_empresaficticia.client.esproj",
+      "Version": 2,
+      "Source": "crud_empresaficticia.client",
+      "GetPublishAssetsTargets": "GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

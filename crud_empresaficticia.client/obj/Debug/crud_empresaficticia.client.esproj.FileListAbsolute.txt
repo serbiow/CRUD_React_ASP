@@ -1,0 +1,1 @@
+C:\Users\sergi\Documents\GitHub\CRUD_React_ASP\crud_empresaficticia.client\obj\Debug\crud_empresaficticia.client.esproj.CoreCompileInputs.cache

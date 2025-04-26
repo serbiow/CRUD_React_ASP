@@ -1,12 +1,90 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AA26C1F7-A058-4B59-B59E-5A5C237AB14A}|CRUD_EmpresaFicticia.Server\\CRUD_EmpresaFicticia.Server.csproj|c:\\users\\sergi\\documents\\github\\crud_react_asp\\crud_empresaficticia.server\\models\\produto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA26C1F7-A058-4B59-B59E-5A5C237AB14A}|CRUD_EmpresaFicticia.Server\\CRUD_EmpresaFicticia.Server.csproj|solutionrelative:crud_empresaficticia.server\\models\\produto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA26C1F7-A058-4B59-B59E-5A5C237AB14A}|CRUD_EmpresaFicticia.Server\\CRUD_EmpresaFicticia.Server.csproj|c:\\users\\sergi\\documents\\github\\crud_react_asp\\crud_empresaficticia.server\\models\\fornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA26C1F7-A058-4B59-B59E-5A5C237AB14A}|CRUD_EmpresaFicticia.Server\\CRUD_EmpresaFicticia.Server.csproj|solutionrelative:crud_empresaficticia.server\\models\\fornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA26C1F7-A058-4B59-B59E-5A5C237AB14A}|CRUD_EmpresaFicticia.Server\\CRUD_EmpresaFicticia.Server.csproj|c:\\users\\sergi\\documents\\github\\crud_react_asp\\crud_empresaficticia.server\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA26C1F7-A058-4B59-B59E-5A5C237AB14A}|CRUD_EmpresaFicticia.Server\\CRUD_EmpresaFicticia.Server.csproj|solutionrelative:crud_empresaficticia.server\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AA26C1F7-A058-4B59-B59E-5A5C237AB14A}|CRUD_EmpresaFicticia.Server\\CRUD_EmpresaFicticia.Server.csproj|c:\\users\\sergi\\documents\\github\\crud_react_asp\\crud_empresaficticia.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA26C1F7-A058-4B59-B59E-5A5C237AB14A}|CRUD_EmpresaFicticia.Server\\CRUD_EmpresaFicticia.Server.csproj|solutionrelative:crud_empresaficticia.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Fornecedor.cs",
+              "DocumentMoniker": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\CRUD_EmpresaFicticia.Server\\Models\\Fornecedor.cs",
+              "RelativeDocumentMoniker": "CRUD_EmpresaFicticia.Server\\Models\\Fornecedor.cs",
+              "ToolTip": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\CRUD_EmpresaFicticia.Server\\Models\\Fornecedor.cs",
+              "RelativeToolTip": "CRUD_EmpresaFicticia.Server\\Models\\Fornecedor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T18:13:30.246Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Produto.cs",
+              "DocumentMoniker": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\CRUD_EmpresaFicticia.Server\\Models\\Produto.cs",
+              "RelativeDocumentMoniker": "CRUD_EmpresaFicticia.Server\\Models\\Produto.cs",
+              "ToolTip": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\CRUD_EmpresaFicticia.Server\\Models\\Produto.cs",
+              "RelativeToolTip": "CRUD_EmpresaFicticia.Server\\Models\\Produto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T18:11:17.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\CRUD_EmpresaFicticia.Server\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "CRUD_EmpresaFicticia.Server\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\CRUD_EmpresaFicticia.Server\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "CRUD_EmpresaFicticia.Server\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAcwCYAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T18:13:16.214Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\CRUD_EmpresaFicticia.Server\\Program.cs",
+              "RelativeDocumentMoniker": "CRUD_EmpresaFicticia.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\sergi\\Documents\\GitHub\\CRUD_React_ASP\\CRUD_EmpresaFicticia.Server\\Program.cs",
+              "RelativeToolTip": "CRUD_EmpresaFicticia.Server\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-26T18:08:33.959Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
