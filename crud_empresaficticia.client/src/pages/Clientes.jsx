@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { aplicarMascaraTelefone } from "@/Utils/utils";
+import { lerMensagemErro, validarCliente } from "@/Utils/api";
 
 export default function Clientes() {
     const [clientes, setClientes] = useState([]);
@@ -30,6 +32,7 @@ export default function Clientes() {
             setClientes(dados);
         } catch (error) {
             console.error("Erro ao buscar clientes:", error);
+            alert("Erro ao buscar clientes.");
         } finally {
             setLoading(false);
         }
@@ -37,21 +40,18 @@ export default function Clientes() {
 
     async function excluirCliente(id) {
         if (!window.confirm("Tem certeza que deseja excluir este cliente?")) return;
-
         try {
-            const resposta = await fetch(`https://localhost:7187/api/Cliente/${id}`, {
-                method: "DELETE",
-            });
-
+            const resposta = await fetch(`https://localhost:7187/api/Cliente/${id}`, { method: "DELETE" });
             if (resposta.ok) {
                 alert("Cliente excluído com sucesso!");
                 buscarClientes();
             } else {
-                alert("Erro ao excluir cliente!");
+                const mensagemErro = await lerMensagemErro(resposta);
+                alert(`Erro ao excluir cliente: ${mensagemErro}`);
             }
         } catch (error) {
             console.error("Erro ao excluir cliente:", error);
-            alert("Erro ao excluir cliente!");
+            alert("Erro inesperado ao excluir cliente.");
         }
     }
 
@@ -61,6 +61,8 @@ export default function Clientes() {
     }
 
     async function salvarEdicao() {
+        if (!validarCliente(clienteEditando)) return;
+
         try {
             const resposta = await fetch(`https://localhost:7187/api/Cliente/${clienteEditando.id}`, {
                 method: "PUT",
@@ -75,7 +77,8 @@ export default function Clientes() {
                 setModoEdicao(false);
                 buscarClientes();
             } else {
-                alert("Erro ao atualizar cliente!");
+                const erro = await resposta.json();
+                alert(erro.message || "Erro ao atualizar cliente!");
             }
         } catch (error) {
             console.error("Erro ao atualizar cliente:", error);
@@ -84,6 +87,8 @@ export default function Clientes() {
     }
 
     async function cadastrarCliente() {
+        if (!validarCliente(novoCliente)) return;
+
         try {
             const resposta = await fetch(`https://localhost:7187/api/Cliente`, {
                 method: "POST",
@@ -99,7 +104,8 @@ export default function Clientes() {
                 setModoCadastro(false);
                 buscarClientes();
             } else {
-                alert("Erro ao cadastrar cliente!");
+                const erro = await resposta.json();
+                alert(erro.message || "Erro ao cadastrar cliente!");
             }
         } catch (error) {
             console.error("Erro ao cadastrar cliente:", error);
@@ -123,18 +129,27 @@ export default function Clientes() {
                             placeholder="Nome"
                             value={novoCliente.nome}
                             onChange={(e) => setNovoCliente({ ...novoCliente, nome: e.target.value })}
+                            required
                         />{" "}
                         <input
-                            type="text"
+                            type="email"
                             placeholder="Email"
                             value={novoCliente.email}
                             onChange={(e) => setNovoCliente({ ...novoCliente, email: e.target.value })}
+                            required
                         />{" "}
                         <input
                             type="text"
                             placeholder="Telefone"
                             value={novoCliente.telefone}
-                            onChange={(e) => setNovoCliente({ ...novoCliente, telefone: e.target.value })}
+                            onChange={(e) => setNovoCliente({
+                                ...novoCliente,
+                                telefone: aplicarMascaraTelefone(e.target.value)
+                            })}
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            maxLength={15}
+                            required
                         />{" "}
                         <br /><br />
                         <button onClick={cadastrarCliente}>Salvar</button>{" "}
@@ -153,18 +168,27 @@ export default function Clientes() {
                             placeholder="Nome"
                             value={clienteEditando.nome}
                             onChange={(e) => setClienteEditando({ ...clienteEditando, nome: e.target.value })}
+                            required
                         />{" "}
                         <input
                             type="text"
                             placeholder="Email"
                             value={clienteEditando.email}
                             onChange={(e) => setClienteEditando({ ...clienteEditando, email: e.target.value })}
+                            required
                         />{" "}
                         <input
                             type="text"
                             placeholder="Telefone"
                             value={clienteEditando.telefone}
-                            onChange={(e) => setClienteEditando({ ...clienteEditando, telefone: e.target.value })}
+                            onChange={(e) => setClienteEditando({
+                                ...clienteEditando,
+                                telefone: aplicarMascaraTelefone(e.target.value)
+                            })}
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            maxLength={15}
+                            required
                         />{" "}
                         <br /><br />
                         <button onClick={salvarEdicao}>Salvar</button>{" "}

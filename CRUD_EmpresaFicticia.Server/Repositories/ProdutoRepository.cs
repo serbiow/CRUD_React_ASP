@@ -37,7 +37,7 @@ namespace CRUD_EmpresaFicticia.Server.Repositories
             var produtoExistente = await _context.Produtos.FindAsync(produto.Id);
 
             if (produtoExistente == null)
-                throw new Exception("Produto n„o encontrado");
+                throw new Exception("Produto n√£o encontrado");
 
             produtoExistente.Nome = produto.Nome;
             produtoExistente.Preco = produto.Preco;

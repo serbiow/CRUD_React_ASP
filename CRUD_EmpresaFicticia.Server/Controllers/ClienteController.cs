@@ -18,37 +18,77 @@ namespace CRUD_EmpresaFicticia.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cliente>>> GetAll()
         {
-            return Ok(await _clienteService.GetAllAsync());
+            try
+            {
+                var clientes = await _clienteService.GetAllAsync();
+                return Ok(clientes);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erro ao buscar clientes.", details = ex.Message });
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Cliente>> GetById(int id)
         {
-            var cliente = await _clienteService.GetByIdAsync(id);
-            if (cliente == null) return NotFound();
-            return Ok(cliente);
+            try
+            {
+                var cliente = await _clienteService.GetByIdAsync(id);
+                if (cliente == null)
+                    return NotFound(new { message = "Cliente não encontrado." });
+
+                return Ok(cliente);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erro ao buscar cliente.", details = ex.Message });
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult<Cliente>> Create(Cliente cliente)
         {
-            var novoCliente = await _clienteService.CreateAsync(cliente);
-            return CreatedAtAction(nameof(GetById), new { id = novoCliente.Id }, novoCliente);
+            try
+            {
+                var novoCliente = await _clienteService.CreateAsync(cliente);
+                return CreatedAtAction(nameof(GetById), new { id = novoCliente.Id }, novoCliente);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Erro ao cadastrar cliente.", details = ex.Message });
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Cliente cliente)
         {
-            if (id != cliente.Id) return BadRequest();
-            await _clienteService.UpdateAsync(cliente);
-            return NoContent();
+            if (id != cliente.Id)
+                return BadRequest(new { message = "ID do cliente enviado não confere com o ID da URL." });
+
+            try
+            {
+                await _clienteService.UpdateAsync(cliente);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _clienteService.DeleteAsync(id);
-            return NoContent();
+            try
+            {
+                await _clienteService.DeleteAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
         }
     }
 }

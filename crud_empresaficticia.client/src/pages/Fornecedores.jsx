@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { aplicarMascaraCNPJ } from "@/Utils/utils";
+import { lerMensagemErro, validarFornecedor } from "@/Utils/api";
 
 export default function Fornecedores() {
     const [fornecedores, setFornecedores] = useState([]);
@@ -30,40 +32,36 @@ export default function Fornecedores() {
             setFornecedores(dados);
         } catch (error) {
             console.error("Erro ao buscar fornecedores:", error);
+            alert("Erro ao buscar fornecedores.");
         } finally {
             setLoading(false);
         }
     }
 
     async function excluirFornecedor(id) {
-        // Buscar se o fornecedor tem produtos
-        const respostaProdutos = await fetch(`https://localhost:7187/api/Produto`);
-        const listaProdutos = await respostaProdutos.json();
-        const produtosDoFornecedor = listaProdutos.filter(p => p.fornecedorId === id);
-
-        let mensagem = "Tem certeza que deseja excluir este fornecedor?";
-
-        if (produtosDoFornecedor.length > 0) {
-            mensagem = `Este fornecedor possui ${produtosDoFornecedor.length} produto(s) cadastrado(s).\nAo excluir, TODOS os produtos também serão apagados.\n\nDeseja continuar?`;
-        }
-
-        if (!window.confirm(mensagem)) return;
-
-        // Confirmação de exclusão
         try {
-            const resposta = await fetch(`https://localhost:7187/api/Fornecedor/${id}`, {
-                method: "DELETE",
-            });
+            const respostaProdutos = await fetch(`https://localhost:7187/api/Produto`);
+            const listaProdutos = await respostaProdutos.json();
+            const produtosDoFornecedor = listaProdutos.filter(p => p.fornecedorId === id);
 
+            let mensagem = "Tem certeza que deseja excluir este fornecedor?";
+            if (produtosDoFornecedor.length > 0) {
+                mensagem = `Este fornecedor possui ${produtosDoFornecedor.length} produto(s) cadastrado(s).\nAo excluir, TODOS os produtos também serão apagados.\n\nDeseja continuar?`;
+            }
+
+            if (!window.confirm(mensagem)) return;
+
+            const resposta = await fetch(`https://localhost:7187/api/Fornecedor/${id}`, { method: "DELETE" });
             if (resposta.ok) {
                 alert("Fornecedor excluído com sucesso!");
                 buscarFornecedores();
             } else {
-                alert("Erro ao excluir fornecedor!");
+                const mensagemErro = await lerMensagemErro(resposta);
+                alert(`Erro ao excluir fornecedor: ${mensagemErro}`);
             }
         } catch (error) {
             console.error("Erro ao excluir fornecedor:", error);
-            alert("Erro ao excluir fornecedor!");
+            alert("Erro inesperado ao excluir fornecedor.");
         }
     }
 
@@ -73,6 +71,8 @@ export default function Fornecedores() {
     }
 
     async function salvarEdicao() {
+        if (!validarFornecedor(fornecedorEditando)) return;
+
         try {
             const resposta = await fetch(`https://localhost:7187/api/Fornecedor/${fornecedorEditando.id}`, {
                 method: "PUT",
@@ -87,7 +87,8 @@ export default function Fornecedores() {
                 setModoEdicao(false);
                 buscarFornecedores();
             } else {
-                alert("Erro ao atualizar fornecedor!");
+                const erro = await resposta.json();
+                alert(erro.message || "Erro ao atualizar fornecedor!");
             }
         } catch (error) {
             console.error("Erro ao atualizar fornecedor:", error);
@@ -96,6 +97,8 @@ export default function Fornecedores() {
     }
 
     async function cadastrarFornecedor() {
+        if (!validarFornecedor(novoFornecedor)) return;
+
         try {
             const resposta = await fetch(`https://localhost:7187/api/Fornecedor`, {
                 method: "POST",
@@ -111,7 +114,8 @@ export default function Fornecedores() {
                 setModoCadastro(false);
                 buscarFornecedores();
             } else {
-                alert("Erro ao cadastrar fornecedor!");
+                const erro = await resposta.json();
+                alert(erro.message || "Erro ao cadastrar fornecedor!");
             }
         } catch (error) {
             console.error("Erro ao cadastrar fornecedor:", error);
@@ -135,18 +139,27 @@ export default function Fornecedores() {
                             placeholder="Razão Social"
                             value={novoFornecedor.razaoSocial}
                             onChange={(e) => setNovoFornecedor({ ...novoFornecedor, razaoSocial: e.target.value })}
+                            required
                         />{" "}
                         <input
                             type="text"
                             placeholder="CNPJ"
                             value={novoFornecedor.cnpj}
-                            onChange={(e) => setNovoFornecedor({ ...novoFornecedor, cnpj: e.target.value })}
+                            onChange={(e) => setNovoFornecedor({
+                                ...novoFornecedor,
+                                cnpj: aplicarMascaraCNPJ(e.target.value)
+                            })}
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            maxLength={18}
+                            required
                         />{" "}
                         <input
                             type="text"
                             placeholder="Contato"
                             value={novoFornecedor.contato}
                             onChange={(e) => setNovoFornecedor({ ...novoFornecedor, contato: e.target.value })}
+                            required
                         />{" "}
                         <br /><br />
                         <button onClick={cadastrarFornecedor}>Salvar</button>{" "}
@@ -165,18 +178,27 @@ export default function Fornecedores() {
                             placeholder="Razão Social"
                             value={fornecedorEditando.razaoSocial}
                             onChange={(e) => setFornecedorEditando({ ...fornecedorEditando, razaoSocial: e.target.value })}
+                            required
                         />{" "}
                         <input
                             type="text"
                             placeholder="CNPJ"
                             value={fornecedorEditando.cnpj}
-                            onChange={(e) => setFornecedorEditando({ ...fornecedorEditando, cnpj: e.target.value })}
+                            onChange={(e) => setFornecedorEditando({
+                                ...fornecedorEditando,
+                                cnpj: aplicarMascaraCNPJ(e.target.value)
+                            })}
+                            inputMode="numeric"
+                            pattern="[0-9]*"
+                            maxLength={18}
+                            required
                         />{" "}
                         <input
                             type="text"
                             placeholder="Contato"
                             value={fornecedorEditando.contato}
                             onChange={(e) => setFornecedorEditando({ ...fornecedorEditando, contato: e.target.value })}
+                            required
                         />{" "}
                         <br /><br />
                         <button onClick={salvarEdicao}>Salvar</button>{" "}

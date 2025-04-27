@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { lerMensagemErro, validarProduto } from "@/Utils/api";
 
 export default function Produtos() {
     const [produtos, setProdutos] = useState([]);
@@ -34,6 +35,7 @@ export default function Produtos() {
             setProdutos(dados);
         } catch (error) {
             console.error("Erro ao buscar produtos:", error);
+            alert("Erro ao buscar produtos.");
         } finally {
             setLoading(false);
         }
@@ -46,6 +48,7 @@ export default function Produtos() {
             setFornecedores(dados);
         } catch (error) {
             console.error("Erro ao buscar fornecedores:", error);
+            alert("Erro ao buscar fornecedores.");
         }
     }
 
@@ -53,19 +56,18 @@ export default function Produtos() {
         if (!window.confirm("Tem certeza que deseja excluir este produto?")) return;
 
         try {
-            const resposta = await fetch(`https://localhost:7187/api/Produto/${id}`, {
-                method: "DELETE",
-            });
+            const resposta = await fetch(`https://localhost:7187/api/Produto/${id}`, { method: "DELETE" });
 
             if (resposta.ok) {
                 alert("Produto excluído com sucesso!");
                 buscarProdutos();
             } else {
-                alert("Erro ao excluir produto!");
+                const mensagemErro = await lerMensagemErro(resposta);
+                alert(`Erro ao excluir produto: ${mensagemErro}`);
             }
         } catch (error) {
             console.error("Erro ao excluir produto:", error);
-            alert("Erro ao excluir produto!");
+            alert("Erro inesperado ao excluir produto.");
         }
     }
 
@@ -75,6 +77,8 @@ export default function Produtos() {
     }
 
     async function salvarEdicao() {
+        if (!validarProduto(produtoEditando)) return;
+
         try {
             const produtoParaSalvar = {
                 ...produtoEditando,
@@ -95,7 +99,8 @@ export default function Produtos() {
                 setModoEdicao(false);
                 buscarProdutos();
             } else {
-                alert("Erro ao atualizar produto!");
+                const erro = await resposta.json();
+                alert(erro.message || "Erro ao atualizar produto!");
             }
         } catch (error) {
             console.error("Erro ao atualizar produto:", error);
@@ -104,6 +109,8 @@ export default function Produtos() {
     }
 
     async function cadastrarProduto() {
+        if (!validarProduto(novoProduto)) return;
+
         try {
             const produtoParaSalvar = {
                 ...novoProduto,
@@ -125,7 +132,8 @@ export default function Produtos() {
                 setModoCadastro(false);
                 buscarProdutos();
             } else {
-                alert("Erro ao cadastrar produto!");
+                const erro = await resposta.json();
+                alert(erro.message || "Erro ao cadastrar produto!");
             }
         } catch (error) {
             console.error("Erro ao cadastrar produto:", error);
@@ -149,18 +157,21 @@ export default function Produtos() {
                             placeholder="Nome"
                             value={novoProduto.nome}
                             onChange={(e) => setNovoProduto({ ...novoProduto, nome: e.target.value })}
+                            required
                         />{" "}
                         <input
                             type="number"
                             placeholder="Preço"
                             value={novoProduto.preco}
                             onChange={(e) => setNovoProduto({ ...novoProduto, preco: parseFloat(e.target.value) })}
+                            required
                         />{" "}
                         <input
                             type="number"
                             placeholder="Estoque"
                             value={novoProduto.estoque}
                             onChange={(e) => setNovoProduto({ ...novoProduto, estoque: parseInt(e.target.value) })}
+                            required
                         />{" "}
                         <select
                             value={novoProduto.fornecedorId}
@@ -190,18 +201,21 @@ export default function Produtos() {
                             placeholder="Nome"
                             value={produtoEditando.nome}
                             onChange={(e) => setProdutoEditando({ ...produtoEditando, nome: e.target.value })}
+                            required
                         />{" "}
                         <input
                             type="number"
                             placeholder="Preço"
                             value={produtoEditando.preco}
                             onChange={(e) => setProdutoEditando({ ...produtoEditando, preco: parseFloat(e.target.value) })}
+                            required
                         />{" "}
                         <input
                             type="number"
                             placeholder="Estoque"
                             value={produtoEditando.estoque}
                             onChange={(e) => setProdutoEditando({ ...produtoEditando, estoque: parseInt(e.target.value) })}
+                            required
                         />{" "}
                         <select
                             value={produtoEditando.fornecedorId}
