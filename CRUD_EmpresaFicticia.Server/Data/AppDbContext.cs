@@ -16,10 +16,9 @@ namespace CRUD_EmpresaFicticia.Server.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configurações adicionais (se quiser)
             modelBuilder.Entity<Cliente>(entity =>
             {
-                entity.ToTable("clientes"); // Nome da tabela no banco
+                entity.ToTable("clientes");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Nome).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Email).HasMaxLength(100);
@@ -58,12 +57,13 @@ namespace CRUD_EmpresaFicticia.Server.Data
                 entity.Property(e => e.CriadoEm)
                     .HasColumnName("criado_em")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.FornecedorId).HasColumnName("fornecedor_id");
 
                 // Relacionamento: Produto → Fornecedor
                 entity.HasOne(p => p.Fornecedor)
                       .WithMany(f => f.Produtos)
                       .HasForeignKey(p => p.FornecedorId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

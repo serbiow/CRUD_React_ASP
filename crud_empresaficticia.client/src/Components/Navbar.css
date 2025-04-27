@@ -1,0 +1,71 @@
+.navbar {
+    width: 100%;
+    background-color: #007bff;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.navbar-logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.2s;
+}
+
+    .navbar-link:hover {
+        color: #d4d4d4;
+    }
+
+/* Botão hamburguer */
+.hamburguer {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .hamburguer {
+        display: block;
+    }
+
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #007bff;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 10px 0;
+    }
+
+        .navbar-links.ativo {
+            display: flex;
+        }
+
+    .navbar-link {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
