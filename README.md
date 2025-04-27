@@ -59,8 +59,8 @@ dotnet run
 ```
 
 5. Acesse no navegador:
-- API (Swagger): `https://localhost:5001/swagger`
-- Frontend React: `https://localhost:44449` (ou porta configurada)
+- API (Swagger): `https://localhost:7187\/swagger` (ou porta configurada)
+- Frontend React: `https://localhost:5173` (ou porta configurada)
 
 ## 💡 Observações
 
