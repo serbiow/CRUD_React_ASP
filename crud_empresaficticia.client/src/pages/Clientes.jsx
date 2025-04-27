@@ -135,7 +135,10 @@ export default function Clientes() {
                             type="email"
                             placeholder="Email"
                             value={novoCliente.email}
-                            onChange={(e) => setNovoCliente({ ...novoCliente, email: e.target.value })}
+                            onChange={(e) => setNovoCliente({
+                                ...novoCliente,
+                                email: e.target.value.replace(/\s/g, "")
+                            })}
                             required
                         />{" "}
                         <input
@@ -174,7 +177,10 @@ export default function Clientes() {
                             type="text"
                             placeholder="Email"
                             value={clienteEditando.email}
-                            onChange={(e) => setClienteEditando({ ...clienteEditando, email: e.target.value })}
+                            onChange={(e) => setClienteEditando({
+                                ...clienteEditando,
+                                email: e.target.value.replace(/\s/g, "")
+                            })}
                             required
                         />{" "}
                         <input
