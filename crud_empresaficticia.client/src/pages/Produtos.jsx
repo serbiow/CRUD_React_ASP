@@ -9,16 +9,16 @@ export default function Produtos() {
     const [produtoEditando, setProdutoEditando] = useState({
         id: 0,
         nome: "",
-        preco: 0,
-        estoque: 0,
+        preco: "",
+        estoque: "",
         fornecedorId: 0
     });
 
     const [modoCadastro, setModoCadastro] = useState(false);
     const [novoProduto, setNovoProduto] = useState({
         nome: "",
-        preco: 0,
-        estoque: 0,
+        preco: "",
+        estoque: "",
         fornecedorId: 0
     });
 
@@ -76,12 +76,18 @@ export default function Produtos() {
 
     async function salvarEdicao() {
         try {
+            const produtoParaSalvar = {
+                ...produtoEditando,
+                preco: parseFloat(produtoEditando.preco),
+                estoque: parseInt(produtoEditando.estoque)
+            };
+
             const resposta = await fetch(`https://localhost:7187/api/Produto/${produtoEditando.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(produtoEditando),
+                body: JSON.stringify(produtoParaSalvar),
             });
 
             if (resposta.ok) {
@@ -99,17 +105,23 @@ export default function Produtos() {
 
     async function cadastrarProduto() {
         try {
+            const produtoParaSalvar = {
+                ...novoProduto,
+                preco: parseFloat(novoProduto.preco),
+                estoque: parseInt(novoProduto.estoque)
+            };
+
             const resposta = await fetch(`https://localhost:7187/api/Produto`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(novoProduto),
+                body: JSON.stringify(produtoParaSalvar),
             });
 
             if (resposta.ok) {
                 alert("Produto cadastrado com sucesso!");
-                setNovoProduto({ nome: "", preco: 0, estoque: 0, fornecedorId: 0 });
+                setNovoProduto({ nome: "", preco: "", estoque: "", fornecedorId: "" });
                 setModoCadastro(false);
                 buscarProdutos();
             } else {

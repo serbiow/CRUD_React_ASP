@@ -34,7 +34,16 @@ namespace CRUD_EmpresaFicticia.Server.Repositories
 
         public async Task UpdateAsync(Produto produto)
         {
-            _context.Produtos.Update(produto);
+            var produtoExistente = await _context.Produtos.FindAsync(produto.Id);
+
+            if (produtoExistente == null)
+                throw new Exception("Produto não encontrado");
+
+            produtoExistente.Nome = produto.Nome;
+            produtoExistente.Preco = produto.Preco;
+            produtoExistente.Estoque = produto.Estoque;
+            produtoExistente.FornecedorId = produto.FornecedorId;
+
             await _context.SaveChangesAsync();
         }
 

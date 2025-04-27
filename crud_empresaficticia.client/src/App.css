@@ -55,6 +55,30 @@ input[type="text"] {
     border-radius: 5px;
 }
 
+input[type="number"] {
+    padding: 8px;
+    margin: 5px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+select {
+    padding: 8px;
+    margin: 5px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+}
+
+    select:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
 .modal {
     position: fixed;
     top: 0;
@@ -77,8 +101,20 @@ input[type="text"] {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
+    .modal-content button {
+        margin-top: 10px;
+    }
+
 @media (max-width: 768px) {
     input[type="text"] {
+        width: 90%;
+    }
+
+    input[type="number"] {
+        width: 90%;
+    }
+
+    select {
         width: 90%;
     }
 
